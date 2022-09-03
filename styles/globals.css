@@ -1,3 +1,23 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import './tailwind.css';
+
+/* scrollbar styles */
+.overflow-overlay {
+  overflow: overlay;
+}
+.overflow-overlay::-webkit-scrollbar {
+  width: 6px;
+}
+.overflow-overlay::-webkit-scrollbar-thumb {
+  background: rgba(90, 90, 90, 0.6);
+  border-radius: 100px;
+}
+.overflow-overlay::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0);
+}
+
+/* Fonts */
+@font-face {
+  font-family: 'Cattie';
+  src: url('/fonts/CattieRegular-EaBG8.woff2') format('woff2');
+  font-display: swap;
+}

@@ -7,7 +7,7 @@ function TodoList({ _todoList }: { _todoList: ITodo[] }) {
   const { todoList } = useTodoContext()
 
   return (
-    <ul className='mt-4 bg-blue-300'>
+    <ul className='overflow-overlay max-h-[65%] overflow-auto rounded-md bg-[#f5f5f5] p-2'>
       {(todoList ?? _todoList).map((todo) => (
         <Todo key={todo.id} todo={todo} />
       ))}

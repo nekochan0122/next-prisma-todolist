@@ -16,12 +16,16 @@ function ToolBar({ _todoList }: { _todoList: ITodo[] }) {
   )
 
   return (
-    <div className='flex justify-between'>
-      <span>
-        {completedAmount} / {todosAmount} completed.
+    <div className='my-2 flex items-center justify-between px-2'>
+      <span className='text-lg'>
+        {completedAmount} / {todosAmount} completed
       </span>
-      <button type='button' className='bg-white text-black' onClick={deleteAllTodo}>
-        clear all
+      <button
+        type='button'
+        className='rounded-md bg-red-500 p-2 font-semibold text-white'
+        onClick={deleteAllTodo}
+      >
+        Clear All
       </button>
     </div>
   )

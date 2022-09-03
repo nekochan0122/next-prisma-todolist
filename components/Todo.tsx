@@ -1,4 +1,6 @@
 import React from 'react'
+import cn from 'classnames'
+import { FcEditImage, FcFullTrash } from 'react-icons/fc'
 import { useTodoContext, useFormContext } from '@/context'
 import { ITodo } from '@/types/todo'
 
@@ -15,24 +17,29 @@ function Todo({ todo }: { todo: ITodo }) {
   const { mode, setUpdateForm } = useFormContext()
 
   return (
-    <li className='my-2 flex bg-pink-200 text-gray-600'>
-      <input
-        type='checkbox'
-        checked={todo.status}
-        onChange={statusOnChangeHandler}
-        disabled={mode === 'Update'}
-      />
-      <span>
-        <span>id : {todo.id}</span>
-        <h3>{todo.title}</h3>
-        <p>{todo.description}</p>
+    <li className='flex items-center justify-between border-b-2 p-2'>
+      <span className={cn('flex', { 'line-through': todo.status })}>
+        <input
+          className='w-4 cursor-pointer rounded-md accent-[#f43f5d98]'
+          type='checkbox'
+          checked={todo.status}
+          onChange={statusOnChangeHandler}
+          disabled={mode === 'Update'}
+        />
+        <span className='ml-2'>
+          <h3 className='text-xl font-bold text-gray-800'>{todo.title}</h3>
+          <p className='text-lg text-gray-700'>{todo.description}</p>
+        </span>
       </span>
-      <button type='button' className='bg-white p-1' onClick={deleteTodo(todo.id)}>
-        X
-      </button>
-      <button type='button' className='ml-2 bg-white p-1' onClick={() => setUpdateForm(todo)}>
-        edit
-      </button>
+
+      <span>
+        <button type='button' className='bg-white p-2' onClick={() => setUpdateForm(todo)}>
+          <FcEditImage className='inline text-2xl' />
+        </button>
+        <button type='button' className='ml-2 bg-white p-2' onClick={deleteTodo(todo.id)}>
+          <FcFullTrash className='inline text-2xl' />
+        </button>
+      </span>
     </li>
   )
 }
