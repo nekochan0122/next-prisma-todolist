@@ -17,9 +17,8 @@ export interface ITodoDB {
 export interface TodoContextType {
   todoList: ITodo[] | null
   initialTodoList: (todoList: ITodo[]) => void
-  setTodoList: (todoList: ITodo[]) => void
-  createTodo: (todo: ITodo) => void
-  // updateTodo: (id: number, key: keyof ITodo, value: any) => void
-  updateTodo: (todo: ITodo) => void
-  deleteTodo: (id: number) => () => void
+  createTodo: (todo: ITodo) => Promise<void>
+  updateTodo: (todo: ITodo) => Promise<void>
+  deleteTodo: (id: number) => () => Promise<void>
+  deleteAllTodo: () => Promise<void>
 }

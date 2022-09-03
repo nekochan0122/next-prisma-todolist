@@ -1,6 +1,7 @@
 import React from 'react'
 import Form from '@/components/Form'
 import TodoList from '@/components/TodoList'
+import ToolBar from '@/components/ToolBar'
 import { useTodoContext } from '@/context'
 import { prisma } from '@/lib/prisma'
 import type { InferGetServerSidePropsType } from 'next'
@@ -33,6 +34,7 @@ function Home({ todoList }: InferGetServerSidePropsType<typeof getServerSideProp
   return (
     <div className='flex flex-col px-80 pt-20'>
       <Form />
+      <ToolBar _todoList={todoList} />
       <TodoList _todoList={todoList} />
     </div>
   )

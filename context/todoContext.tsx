@@ -13,26 +13,9 @@ export const TodoProvider = ({ children }: { children: React.ReactNode }) => {
     [isChanged.current, _todoList]
   )
 
-  // const changeTodoList = React.useCallback(
-  //   (todoList: ITodo[]) => {
-  //     if (!isChanged.current) isChanged.current = true
-  //     _setTodoList(todoList)
-  //   },
-  //   [isChanged.current]
-  // )
-
   const initialTodoList = React.useCallback((todoList: ITodo[]) => {
     _setTodoList(todoList)
   }, [])
-
-  const setTodoList = React.useCallback(
-    (todoList: ITodo[]) => {
-      if (!isChanged.current) isChanged.current = true
-      _setTodoList(todoList)
-      // TODO : Prisma update
-    },
-    [isChanged.current]
-  )
 
   const createTodo = React.useCallback(
     async (todo: ITodo) => {
@@ -58,13 +41,6 @@ export const TodoProvider = ({ children }: { children: React.ReactNode }) => {
     },
     [isChanged.current]
   )
-
-  // const updateTodo = async (id: number, key: keyof ITodo, value: any) => {
-  //   if (!isChanged.current) isChanged.current = true
-  //   _setTodoList((state) =>
-  //     state.map((todo) => (todo.id === id ? { ...todo, [key]: value } : todo))
-  //   )
-  // }
 
   const updateTodo = React.useCallback(
     async (todo: ITodo) => {
@@ -104,20 +80,29 @@ export const TodoProvider = ({ children }: { children: React.ReactNode }) => {
     [isChanged.current]
   )
 
-  // Debug
-  React.useEffect(() => {
-    console.table(todoList)
-  }, [todoList])
+  const deleteAllTodo = React.useCallback(async () => {
+    if (!isChanged.current) isChanged.current = true
+
+    _setTodoList([])
+
+    try {
+      await fetch('/api/delete/all', {
+        method: 'DELETE',
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }, [isChanged.current])
 
   return (
     <TodoContext.Provider
       value={{
         todoList,
         initialTodoList,
-        setTodoList,
         createTodo,
         updateTodo,
         deleteTodo,
+        deleteAllTodo,
       }}
     >
       {children}
