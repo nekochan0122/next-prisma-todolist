@@ -23,7 +23,7 @@ function Document() {
           type='font/woff2'
         />
       </Head>
-      <body className='h-screen overflow-hidden bg-gradient-to-br from-[#00b7ff9b] to-[#f43f5d98] p-2 font-content antialiased selection:bg-[#67769660]'>
+      <body className='h-screen overflow-hidden bg-gradient-to-br from-[#00b7ff9b] to-[#f43f5d98] p-10 font-content antialiased selection:bg-[#67769660]'>
         <Main />
         <NextScript />
       </body>

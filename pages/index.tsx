@@ -41,12 +41,13 @@ function Home({ todoList }: InferGetServerSidePropsType<typeof getServerSideProp
             <a
               className='flex items-center hover:text-[#f43f5d98]'
               href='https://github.com/NekoChanTaiwan/next-prisma-todolist'
+              target='_blank'
               rel='noreferrer'
             >
               <FaGithub className='mr-1 inline-block text-lg' />
               <span>GitHub - By NekoChan</span>
             </a>
-            <p>Built on Next.js, Prisma, MySQL, Tailwind CSS, TypeScript.</p>
+            <p>Built on Next.js, Tailwind CSS, Prisma, MySQL, TypeScript</p>
           </span>
         </div>
         <Form />
