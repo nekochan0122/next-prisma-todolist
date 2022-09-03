@@ -9,7 +9,8 @@
     "lint": "next lint",
     "format": "prettier --write .",
     "updateAll": "pnpm up --latest",
-    "prisma:migrate": "pnpx prisma migrate dev"
+    "prisma:migrate": "pnpx prisma migrate dev",
+    "prisma:studio": "pnpx prisma studio"
   },
   "dependencies": {
     "@prisma/client": "^4.3.1",

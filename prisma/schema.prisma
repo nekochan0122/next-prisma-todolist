@@ -11,10 +11,10 @@ datasource db {
 }
 
 model Todo {
-  id       Int      @id @default(autoincrement())
-  title    String
-  content  String
-  isDone   Boolean  @default(false)
-  createAt DateTime @default(now())
-  updateAt DateTime @updatedAt
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  status      Boolean  @default(false)
+  createAt    DateTime @default(now())
+  updateAt    DateTime @updatedAt
 }

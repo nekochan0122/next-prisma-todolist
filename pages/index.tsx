@@ -1,93 +1,39 @@
 import React from 'react'
 import { prisma } from '@/lib/prisma'
+import Form from '@/components/Form'
+import TodoList from '@/components/TodoList'
+import { useTodoContext } from '@/context/todoContext'
 import type { InferGetServerSidePropsType } from 'next'
-
-interface Todo {
-  id: number
-  title: string
-  content: string
-  isDone: boolean
-}
-
-const initTodo: Todo = {
-  id: 0,
-  title: '',
-  content: '',
-  isDone: false,
-}
+import type { ITodo } from '@/types/todo'
 
 export const getServerSideProps = async () => {
-  const todos = (await prisma.todo.findMany({
+  const todoList = (await prisma.todo.findMany({
     select: {
       id: true,
       title: true,
-      content: true,
-      isDone: true,
+      description: true,
+      status: true,
     },
-  })) as Todo[]
+  })) as ITodo[]
 
   return {
     props: {
-      todos,
+      todoList,
     },
   }
 }
 
-function Home({ todos }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  // TODO: todolist state
-  const [todo, setTodo] = React.useState<Todo>(initTodo)
+function Home({ todoList }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  const { initialTodoList } = useTodoContext()
 
-  const onSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault() // prevent page reload
-
-    try {
-      await fetch('/api/create', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(todo),
-      })
-      setTodo(initTodo)
-    } catch (error) {
-      console.error(error)
-    }
-  }
+  React.useEffect(() => {
+    initialTodoList(todoList)
+  }, [])
 
   return (
-    <div className='flex h-screen flex-col items-center justify-start pt-10'>
-      <form className='flex flex-col text-black' onSubmit={onSubmitHandler}>
-        <input
-          type='text'
-          className='mb-2'
-          placeholder='Title'
-          value={todo.title}
-          onChange={(e) => setTodo((state) => ({ ...state, title: e.target.value }))}
-        />
-        <textarea
-          className='mb-2'
-          placeholder='Content'
-          value={todo.content}
-          onChange={(e) => setTodo((state) => ({ ...state, content: e.target.value }))}
-        />
-        <button type='submit' className='bg-[#fff] p-2'>
-          Add todo
-        </button>
-      </form>
-      {/* <div>
-        <h3>Preview</h3>
-        <h4>{todo.title}</h4>
-        <p>{todo.content}</p>
-      </div> */}
-      <ul>
-        {todos &&
-          todos.map(({ id, title, content, isDone }) => (
-            <li key={id}>
-              <h4>{title}</h4>
-              <p>{content}</p>
-            </li>
-          ))}
-      </ul>
+    <div className='flex flex-col px-80 pt-20'>
+      <Form />
+      <TodoList _todoList={todoList} />
     </div>
   )
 }

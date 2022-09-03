@@ -2,17 +2,16 @@ import { prisma } from '@/lib/prisma'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const { title, description } = req.body
+  const { id } = req.query
 
   try {
-    const todo = await prisma.todo.create({
-      data: {
-        title,
-        description,
+    const deletedTodo = await prisma.todo.delete({
+      where: {
+        id: Number(id),
       },
     })
 
-    res.status(200).json(todo)
+    res.status(200).json(deletedTodo)
   } catch (error) {
     res.status(500).json({ error })
   }

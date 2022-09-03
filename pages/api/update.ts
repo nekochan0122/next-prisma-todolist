@@ -2,17 +2,21 @@ import { prisma } from '@/lib/prisma'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const { title, description } = req.body
+  const { id, title, description, status } = req.body
 
   try {
-    const todo = await prisma.todo.create({
+    const updatedTodo = await prisma.todo.update({
+      where: {
+        id: Number(id),
+      },
       data: {
         title,
         description,
+        status,
       },
     })
 
-    res.status(200).json(todo)
+    res.status(200).json(updatedTodo)
   } catch (error) {
     res.status(500).json({ error })
   }
