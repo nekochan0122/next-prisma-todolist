@@ -1,12 +1,12 @@
-import { TodoProvider } from '@/context/todoContext'
+import { ContextProvider } from '@/context'
 import type { AppProps } from 'next/app'
 import '../styles/globals.css'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <TodoProvider>
+    <ContextProvider>
       <Component {...pageProps} />
-    </TodoProvider>
+    </ContextProvider>
   )
 }
 

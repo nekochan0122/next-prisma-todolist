@@ -1,8 +1,8 @@
 import React from 'react'
-import { prisma } from '@/lib/prisma'
 import Form from '@/components/Form'
 import TodoList from '@/components/TodoList'
-import { useTodoContext } from '@/context/todoContext'
+import { useTodoContext } from '@/context'
+import { prisma } from '@/lib/prisma'
 import type { InferGetServerSidePropsType } from 'next'
 import type { ITodo } from '@/types/todo'
 
@@ -28,7 +28,7 @@ function Home({ todoList }: InferGetServerSidePropsType<typeof getServerSideProp
 
   React.useEffect(() => {
     initialTodoList(todoList)
-  }, [])
+  }, [initialTodoList, todoList])
 
   return (
     <div className='flex flex-col px-80 pt-20'>

@@ -109,11 +109,16 @@ export const TodoProvider = ({ children }: { children: React.ReactNode }) => {
     console.table(todoList)
   }, [todoList])
 
-  const [updateForm, setUpdateForm] = React.useState<ITodo | null>(null)
-
   return (
     <TodoContext.Provider
-      value={{ todoList, initialTodoList, setTodoList, createTodo, updateTodo, deleteTodo }}
+      value={{
+        todoList,
+        initialTodoList,
+        setTodoList,
+        createTodo,
+        updateTodo,
+        deleteTodo,
+      }}
     >
       {children}
     </TodoContext.Provider>

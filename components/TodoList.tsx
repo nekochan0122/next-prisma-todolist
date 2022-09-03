@@ -1,6 +1,6 @@
 import React from 'react'
 import Todo from './Todo'
-import { useTodoContext } from '@/context/todoContext'
+import { useTodoContext } from '@/context'
 import type { ITodo } from '@/types/todo'
 
 function TodoList({ _todoList }: { _todoList: ITodo[] }) {
