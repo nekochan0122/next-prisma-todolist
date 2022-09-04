@@ -9,7 +9,7 @@ import type { InferGetServerSidePropsType } from 'next'
 import type { ITodo } from '@/types/todo'
 
 export const getServerSideProps = async () => {
-  const todoList = (await prisma.todo.findMany({
+  const todoListDB = (await prisma.todo.findMany({
     select: {
       id: true,
       title: true,
@@ -20,17 +20,17 @@ export const getServerSideProps = async () => {
 
   return {
     props: {
-      todoList,
+      todoListDB,
     },
   }
 }
 
-function Home({ todoList }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+function Home({ todoListDB }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const { initialTodoList } = useTodoContext()
 
   React.useEffect(() => {
-    initialTodoList(todoList)
-  }, [initialTodoList, todoList])
+    initialTodoList(todoListDB)
+  }, [initialTodoList, todoListDB])
 
   return (
     <div className='flex justify-center'>
@@ -51,8 +51,8 @@ function Home({ todoList }: InferGetServerSidePropsType<typeof getServerSideProp
           </span>
         </div>
         <Form />
-        <ToolBar _todoList={todoList} />
-        <TodoList _todoList={todoList} />
+        <ToolBar todoListDB={todoListDB} />
+        <TodoList todoListDB={todoListDB} />
       </div>
     </div>
   )

@@ -17,16 +17,16 @@ function Todo({ todo }: { todo: ITodo }) {
   const { mode, setUpdateForm } = useFormContext()
 
   return (
-    <li className='flex items-center justify-between border-b-2 p-2'>
+    <li className='flex items-center justify-between border-b-2 px-2'>
       <span className={cn('flex', { 'line-through': todo.status })}>
         <input
-          className='w-4 cursor-pointer rounded-md accent-[#f43f5d98]'
+          className='w-4 cursor-pointer rounded-md p-2 accent-[#f43f5d98]'
           type='checkbox'
           checked={todo.status}
           onChange={statusOnChangeHandler}
           disabled={mode === 'Update'}
         />
-        <span className='ml-2'>
+        <span className='ml-4'>
           <h3 className='text-xl font-bold text-gray-800'>{todo.title}</h3>
           <p className='text-lg text-gray-700'>{todo.description}</p>
         </span>
