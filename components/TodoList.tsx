@@ -1,11 +1,9 @@
 import React from 'react'
 import Todo from './Todo'
 import { useTodoContext } from '@/context'
-import type { ITodo } from '@/types/todo'
 
-function TodoList({ todoListDB }: { todoListDB: ITodo[] }) {
-  const { todoList: todoListState } = useTodoContext()
-  const todoList = todoListState ?? todoListDB
+function TodoList() {
+  const { todoList } = useTodoContext()
 
   return (
     <ul className='overflow-overlay max-h-[65%] overflow-auto rounded-md bg-[#f5f5f5] p-2'>

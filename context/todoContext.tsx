@@ -1,4 +1,5 @@
 import React from 'react'
+import { useSession } from 'next-auth/react'
 import type { TodoContextType, ITodo, ITodoDB } from '@/types/todo'
 
 const TodoContext = React.createContext<TodoContextType | null>(null)
@@ -6,16 +7,14 @@ const TodoContext = React.createContext<TodoContextType | null>(null)
 export const useTodoContext = () => React.useContext(TodoContext) as TodoContextType
 
 export const TodoProvider = ({ children }: { children: React.ReactNode }) => {
-  const [_todoList, _setTodoList] = React.useState<ITodo[]>([])
+  const [todoList, _setTodoList] = React.useState<ITodo[]>([])
   const isChanged = React.useRef<boolean>(false)
-  const todoList = React.useMemo<ITodo[] | null>(
-    () => (isChanged.current ? _todoList : null),
-    [isChanged.current, _todoList]
-  )
+  // const { data: session } = useSession()
 
-  const initialTodoList = React.useCallback((todoList: ITodo[]) => {
-    _setTodoList(todoList)
-  }, [])
+  // React.useEffect(() => {
+  //   if (session) {
+  //   }
+  // }, [session])
 
   const createTodo = React.useCallback(
     async (todo: ITodo) => {
@@ -98,7 +97,7 @@ export const TodoProvider = ({ children }: { children: React.ReactNode }) => {
     <TodoContext.Provider
       value={{
         todoList,
-        initialTodoList,
+        // initialTodoList,
         createTodo,
         updateTodo,
         deleteTodo,
