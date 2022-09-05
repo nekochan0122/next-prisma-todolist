@@ -1,13 +1,23 @@
+import { unstable_getServerSession } from 'next-auth'
+import { authOptions } from './auth/[...nextauth]'
 import { prisma } from '@/lib/prisma'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const { userId } = req.body
-
   try {
+    const session = await unstable_getServerSession(req, res, authOptions)
+
+    if (!session?.user.id) throw new Error('User not found')
+
     const todolist = await prisma.todo.findMany({
       where: {
-        userId,
+        userId: session.user.id,
+      },
+      select: {
+        id: true,
+        title: true,
+        description: true,
+        status: true,
       },
     })
 

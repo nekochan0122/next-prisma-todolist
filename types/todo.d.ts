@@ -5,15 +5,6 @@ export interface ITodo {
   status: boolean
 }
 
-export interface ITodoDB {
-  id: number
-  title: string
-  description: string
-  status: boolean
-  createAt: string
-  updatedAt: string
-}
-
 export interface TodoContextType {
   todoList: ITodo[]
   createTodo: (todo: ITodo) => Promise<void>
