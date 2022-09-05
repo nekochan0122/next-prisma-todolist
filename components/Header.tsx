@@ -15,7 +15,7 @@ function Header() {
           <FaGithub className='mr-1 inline-block text-lg' />
           <span>GitHub - By NekoChan</span>
         </a>
-        <p>Built on Next.js, Tailwind CSS, Prisma, MySQL and TypeScript</p>
+        <p>Built on Next.js, NextAuth.js, Tailwind CSS, Prisma and MySQL</p>
       </span>
     </header>
   )
