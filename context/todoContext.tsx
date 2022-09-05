@@ -42,6 +42,8 @@ export const TodoProvider = ({ children }: { children: React.ReactNode }) => {
   }
 
   const updateTodo = async (todo: ITodo) => {
+    _setTodoList((_todoList) => _todoList.map((_todo) => (_todo.id === todo.id ? todo : _todo)))
+
     try {
       await fetch('/api/update', {
         method: 'POST',
@@ -50,14 +52,14 @@ export const TodoProvider = ({ children }: { children: React.ReactNode }) => {
         },
         body: JSON.stringify(todo),
       })
-
-      _setTodoList((_todoList) => _todoList.map((_todo) => (_todo.id === todo.id ? todo : _todo)))
     } catch (error) {
       console.log(error)
     }
   }
 
   const deleteTodo = (id: number) => async () => {
+    _setTodoList((_todoList) => _todoList.filter((todo) => todo.id !== id))
+
     try {
       await fetch('/api/delete/', {
         method: 'DELETE',
@@ -66,20 +68,18 @@ export const TodoProvider = ({ children }: { children: React.ReactNode }) => {
         },
         body: JSON.stringify({ id }),
       })
-
-      _setTodoList((_todoList) => _todoList.filter((todo) => todo.id !== id))
     } catch (error) {
       console.log(error)
     }
   }
 
   const deleteAllTodo = async () => {
+    _setTodoList([])
+
     try {
       await fetch('/api/deleteAll', {
         method: 'DELETE',
       })
-
-      _setTodoList([])
     } catch (error) {
       console.log(error)
     }

@@ -8,10 +8,6 @@ function Home() {
   const { data: session } = useSession()
   const View = session?.user ? LoggedInView : UnLoggedInView
 
-  React.useEffect(() => {
-    console.log('session', session)
-  }, [session])
-
   return (
     <div className='flex justify-center'>
       <div className='max-h-[90vh] w-full overflow-hidden rounded-md bg-[#f5f5f5] bg-opacity-60 p-4 shadow-xl sm:w-[80%] md:w-[70%] lg:w-[60%] xl:w-[50%]'>
